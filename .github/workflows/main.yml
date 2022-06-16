@@ -20,7 +20,7 @@ jobs:
       - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: $HEROKU_APP_NAME
+          heroku_app_name:  ${{ env.HEROKU_APP_NAME }}
           heroku_email: ${{secrets.HEROKU_EMAIL}}
           usedocker: true
 
@@ -37,8 +37,8 @@ jobs:
           --pull always \
           nonamesec.jfrog.io/noname-docker-release/active-cli:0.8.9 \
           scan \
-          --api-url=$ACTIVE_API_URL \
+          --api-url=${{ env.ACTIVE_API_URL }} \
           --api-token=${{ secrets.ACTIVE_API_TOKEN }} \
           --test-suite-id=$ACTIVE_TEST_SUITE_ID \
-          --severity-threshold=$ACTIVE_SEVERITY_THRESHOLD \
-          --base-url=$ACTIVE_BASE_URL
+          --severity-threshold=${{ env.ACTIVE_SEVERITY_THRESHOLD }} \
+          --base-url=${{ env.ACTIVE_BASE_URL }}
