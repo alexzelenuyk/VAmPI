@@ -5,7 +5,7 @@ on:
     branches:
       - master
 env:
-  HEROKU_APP_NAME: vampi-example
+  HEROKU_APP_NAME: 'vampi-example'
   ACTIVE_API_URL: ''
   ACTIVE_TEST_SUITE_ID: ''
   ACTIVE_SEVERITY_THRESHOLD: ''
