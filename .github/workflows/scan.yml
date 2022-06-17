@@ -1,18 +1,14 @@
-name: Deploy
-
 on:
-  push:
-    branches:
-      - master
+  workflow_call:
+
 env:
-  HEROKU_APP_NAME: 'vampi-example'
   ACTIVE_API_URL: ''
   ACTIVE_TEST_SUITE_ID: ''
   ACTIVE_SEVERITY_THRESHOLD: ''
   ACTIVE_BASE_URL: ''
 
 jobs:
-  build:
+  scan:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
