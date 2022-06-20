@@ -17,23 +17,29 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: debug
+        env:
+          HEROKU_EMAIL: ${{ secrets.HEROKU_EMAIL }}
+        run: |
+          example-command "$env:HEROKU_EMAIL"
+
       - name: write netrc file
         run: |
           cat >~/.netrc <<EOF
-          machine api.heroku.com
-            login $HEROKU_EMAIL
-            password $HEROKU_API_KEY          
-          machine git.heroku.com
-            login $HEROKU_EMAIL
-            password $HEROKU_API_KEY
+            machine api.heroku.com
+              login $HEROKU_EMAIL
+              password $HEROKU_API_KEY          
+            machine git.heroku.com
+              login $HEROKU_EMAIL
+              password $HEROKU_API_KEY
           EOF
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
           HEROKU_EMAIL: ${{ secrets.HEROKU_EMAIL }}
-      - name: install heroku cli
-        run: curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
       - name: test
         run: cat ~/.netrc
+      - name: install heroku cli
+        run: curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
       - name: push container
         run: heroku container:push web --app ${{ env.HEROKU_APP_NAME }}
       - name: release change
