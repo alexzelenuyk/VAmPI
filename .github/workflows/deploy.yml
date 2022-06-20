@@ -29,6 +29,8 @@ jobs:
           EOF
       - name: install heroku cli
         run: curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
+      - name: test
+        run: cat ~/.netrc
       - name: push container
         run: heroku container:push web --app ${{ env.HEROKU_APP_NAME }}
       - name: release change
