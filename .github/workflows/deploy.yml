@@ -21,7 +21,7 @@ jobs:
         env:
           HEROKU_EMAIL: ${{ secrets.HEROKU_EMAIL }}
         run: |
-          echo "$env:HEROKU_EMAIL"
+          echo "$env:$HEROKU_EMAIL"
 
       - name: write netrc file
         run: |
