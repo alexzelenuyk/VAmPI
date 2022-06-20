@@ -17,12 +17,20 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
-        with:
-          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name:  ${{ env.HEROKU_APP_NAME }}
-          heroku_email: ${{secrets.HEROKU_EMAIL}}
-          usedocker: true
+
+      - name: release change
+        run: |
+          cat >~/.netrc <<EOF
+          machine api.heroku.com
+            login ${{secrets.HEROKU_EMAIL}}
+            password ${{secrets.HEROKU_API_KEY}}
+          machine git.heroku.com
+            login ${{secrets.HEROKU_EMAIL}}
+            password ${{secrets.HEROKU_API_KEY}}
+          EOF \
+          curl https://cli-assets.heroku.com/install-ubuntu.sh | sh \
+          heroku container:push web --app ${{ env.HEROKU_APP_NAME }} \
+          heroku container:release web --app ${{ env.HEROKU_APP_NAME }} 
 
   noname-scan:
     needs: deploy
