@@ -28,14 +28,11 @@ jobs:
             password ${{secrets.HEROKU_API_KEY}} \
           EOF
       - name: install heroku cli
-          run: |          
-          curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
+          run: curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
       - name: push container
-          run: |          
-          heroku container:push web --app ${{ env.HEROKU_APP_NAME }}
+          run: heroku container:push web --app ${{ env.HEROKU_APP_NAME }}
       - name: release change
-          run: |          
-          heroku container:release web --app ${{ env.HEROKU_APP_NAME }}
+          run: heroku container:release web --app ${{ env.HEROKU_APP_NAME }}
 
 #  noname-scan:
 #    needs: deploy
